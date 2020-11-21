@@ -11,4 +11,4 @@ def imageCopy(img, img2):
     bg_w, bg_h = background.size
     offset = ((bg_w - img_w) // 2, (bg_h - img_h) // 2)
     img2.paste(img, offset)
-    img2.save(r'C:\Users\Kivan\OneDrive\Pictures\Camera Roll\image1.jpg')
+    img2.save(r"/Users/jakecolapietro/Desktop/CapturedFrames/frame5.jpg")

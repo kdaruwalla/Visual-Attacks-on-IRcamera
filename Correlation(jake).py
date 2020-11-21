@@ -7,6 +7,7 @@ import math
 import numpy as np
 import cv2 as cv
 from scipy import stats
+from skimage.metrics import _structural_similarity as ssim
 
 
 #funciton used to  write frames to file
@@ -15,9 +16,9 @@ def write_bytesio_to_file(filename, bytesio):
         outfile.write(bytesio.getbuffer())
     return cv.imread(filename)
 
-def correlate(image_stream, i):
-    newIm = image_stream
 
+def correlate(image, i):
+    newIm = image
 
     if i is 0:
         print('0')
@@ -43,11 +44,8 @@ def correlate(image_stream, i):
     if i is 10:
         oldIm = cv.imread('/Users/jakecolapietro/Desktop/CapturedFrames/frame10.jpg')
 
-    old = np.float64(oldIm)
-    new = np.float64(newIm)
-
-    ifc = stats.pearsonr(old, new)
-    #ifc = np.average(correlate)
+    ifc = ssim.structural_similarity(oldIm, newIm, multichannel=True)
+    #ifc = np.average(c)
 
     print(ifc)
 
@@ -107,8 +105,8 @@ try:
             img = write_bytesio_to_file("/Users/jakecolapietro/Desktop/CapturedFrames/frame9.jpg", image_stream)
         if counter == 9:
             img = write_bytesio_to_file("/Users/jakecolapietro/Desktop/CapturedFrames/frame10.jpg", image_stream)
-        
-        
+
+
         corr = correlate(img, i)
         counter = counter + 1
         i = i + 1

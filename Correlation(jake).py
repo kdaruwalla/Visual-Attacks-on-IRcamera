@@ -8,6 +8,7 @@ import numpy as np
 import cv2 as cv
 from scipy import stats
 from skimage.metrics import _structural_similarity as ssim
+from ImageCopyPaste import imageCopy
 
 
 #funciton used to  write frames to file
@@ -106,12 +107,22 @@ try:
         if counter == 9:
             img = write_bytesio_to_file("/Users/jakecolapietro/Desktop/CapturedFrames/frame10.jpg", image_stream)
 
+         #attack injection
+        if counter == 5:
+            img1 = Image.open(r"/Users/jakecolapietro/Desktop/CapturedFrames/image2.jpg", 'r') #represents the image to be pasted
+            img2 = Image.open(r"/Users/jakecolapietro/Desktop/CapturedFrames/frame5.jpg", 'r')#represnets the image to get pasted over
+            imageCopy(img1, img2) #function to copy and paste attack
 
-        corr = correlate(img, i)
+
+
         counter = counter + 1
+        corr = correlate(img, i)
         i = i + 1
+
 
 finally:
     connection.close()
     server_socket.close()
+
+
 
